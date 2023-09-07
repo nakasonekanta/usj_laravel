@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/usjs', [App\Http\Controllers\UsjController::class, 'index'])->name('usjs');
+Route::post('/usj', [App\Http\Controllers\UsjController::class, 'store'])->name('usj');
+Route::delete('/usj/{usj}', [App\Http\Controllers\UsjController::class, 'destroy'])->name('usj/{usj}');
