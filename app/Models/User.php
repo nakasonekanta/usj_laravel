@@ -42,4 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * ユーザーの保持
+     */
+    public function usjs()
+    {
+        return $this->hasMany(Usj::class);
+    }
 }

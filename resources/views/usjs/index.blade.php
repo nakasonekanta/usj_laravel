@@ -1,4 +1,4 @@
-@extends('usjs.app')
+@extends('layouts.app')
  
 @section('content')
 

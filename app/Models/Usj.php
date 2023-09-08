@@ -9,5 +9,13 @@ class Usj extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'name'];
+    protected $fillable = ['name'];
+
+    /**
+     * usjを保持する
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

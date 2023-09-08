@@ -9,6 +9,16 @@ use App\Models\Usj;
 class UsjController extends Controller
 {
     /**
+     * コンストラクタ
+     * 
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * usj一覧
      * 
      * @param Request $request
@@ -16,7 +26,8 @@ class UsjController extends Controller
      */
     public function index(Request $request)
     {
-        $usjs = Usj::orderBy('created_at', 'asc')->get();
+        //$usjs = Usj::orderBy('created_at', 'asc')->get();
+        $usjs = $request->user()->usjs()->get();
         return view('usjs.index', [
             'usjs' => $usjs,
         ]);
@@ -35,9 +46,12 @@ class UsjController extends Controller
             ]);
      
             // usj作成
-            Usj::create([
-                'user_id' => 0,
-                'name' => $request->name
+            //Usj::create([
+              //  'user_id' => 0,
+                //'name' => $request->name
+            //]);
+            $request->user()->usjs()->create([
+                'name' => $request->name,
             ]);
      
             return redirect('/usjs');
@@ -52,6 +66,8 @@ class UsjController extends Controller
         */
     public function destroy(Request $request, Usj $usj)
     {
+        $this->authorize('destroy', $usj);
+
         $usj->delete();
         return redirect('/usjs');
     }
