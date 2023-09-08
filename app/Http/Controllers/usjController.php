@@ -6,16 +6,27 @@ use Illuminate\Http\Request;
 
 use App\Models\Usj;
 
+use App\Repositories\UsjRepository;
+
 class UsjController extends Controller
 {
+    /**
+     * usjリポジトリ
+     * 
+     * @var UsjRepository
+     */
+    protected $usjs;
+
     /**
      * コンストラクタ
      * 
      * @return void
      */
-    public function __construct()
+    public function __construct(UsjRepository $usjs)
     {
         $this->middleware('auth');
+
+        $this->usjs = $usjs;
     }
 
     /**
@@ -27,9 +38,9 @@ class UsjController extends Controller
     public function index(Request $request)
     {
         //$usjs = Usj::orderBy('created_at', 'asc')->get();
-        $usjs = $request->user()->usjs()->get();
+       // $usjs = $request->user()->usjs()->get();
         return view('usjs.index', [
-            'usjs' => $usjs,
+            'usjs' => $this->usjs->forUser($request->user()),
         ]);
     }
 

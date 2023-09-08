@@ -21,6 +21,3 @@ Route::get('/usjs', [App\Http\Controllers\UsjController::class, 'index'])->name(
 Route::post('/usj', [App\Http\Controllers\UsjController::class, 'store'])->name('usj');
 Route::delete('/usj/{usj}', [App\Http\Controllers\UsjController::class, 'destroy'])->name('usj/{usj}');
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
